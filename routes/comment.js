@@ -47,7 +47,7 @@ router.post("/add_new_comment", async function (req, res) {
 router.delete("/delete_Comment/:videoID", async function (req, res) {
   try {
     const { videoID } = req.params;
-    await c.findOneAndDelete({
+    await commentModel.findOneAndDelete({
       videoID: { $eq: videoID },
     });
     res.status(200).json({ status: true, message: "Đã xoá thành công" });
