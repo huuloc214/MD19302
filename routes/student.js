@@ -114,7 +114,7 @@ router.delete("/delete_student/:mssv", async function (req, res) {
   try {
     const { MSSV } = req.params;
     await studentModel.findOneAndDelete({
-      mssv: { $eq: MSSV },
+      MSSV: { $eq: MSSV },
     });
     res.status(200).json({ status: true, message: "Đã xoá thành công" });
   } catch (error) {
@@ -179,7 +179,7 @@ router.get("/get_all_student_sort_by_svg", async function (req, res) {
 });
 
 // Tìm sinh viên có điểm trung bình cao nhất thuộc BM CNTT
-router.get("/student_highest_avg/:boMon", async function (req, res) {
+router.get("/student_highest_avg/:BM", async function (req, res) {
   try {
     const { BM } = req.params;
     var listMajor = await studentModel
