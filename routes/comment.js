@@ -27,13 +27,13 @@ router.get('/get_all_Comment', async function(req, res) {
 
 router.post("/add_new_comment", async function (req, res) {
   try {
-    // const { videoID, channelID, content } = req.body;
+    const { videoID, channelID, content } = req.body;
 
-    // const newComment = {
-    //   videoID,
-    //   channelID,
-    //   content,
-    // };
+    const newComment = {
+      videoID,
+      channelID,
+      content,
+    };
 
     await commentModel.create(newComment);
     res.status(200).json({ status: true, message: "Đã thêm thành công" });
