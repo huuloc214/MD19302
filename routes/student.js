@@ -89,7 +89,7 @@ router.post("/add_new_student", async function (req, res) {
 });
 
 // Thay đổi thông tin sinh viên theo MSSV
-router.put("/edit_student_by_mssv", async function (req, res) {
+router.put("/edit_student_by_MSSV", async function (req, res) {
   try {
     const { MSSV, TenHocSinh, Diem, BM, Tuoi } = req.body;
 
