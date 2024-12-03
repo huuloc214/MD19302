@@ -6,7 +6,6 @@ const comment = new Schema({
     videoID: {type: String},
     channelID: {type: String},
     content: {type: String}
-
 });
 
 module.exports = mongoose.model.comment || mongoose.model("comment", comment);

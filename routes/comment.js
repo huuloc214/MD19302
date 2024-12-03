@@ -1,14 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var comment = require("../model/commentModel");
 const commentModel = require('../model/commentModel');
 const JWT = require('jsonwebtoken');
 const config = require("../util/tokenConfig");
 
 router.get('/get_all_Comment', async function(res, req) {
   try {
-
     const token = req.header("Authorization").split(' ')[1];
     if (token) {
       JWT.verify(token, config.SECRETKEY, async function (err, id) {
@@ -22,7 +20,6 @@ router.get('/get_all_Comment', async function(res, req) {
     } else {
       res.status(400).json({ status: false, message: "không xác thực" });
     } 
-
   } catch (e) {
     res.status(400).json({ statas: false, message: "Có lỗi xãy ra" + e });
   }
