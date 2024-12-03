@@ -110,7 +110,7 @@ router.put("/edit_student_by_mssv", async function (req, res) {
 });
 
 // Xóa một sinh viên ra khỏi danh sách
-router.delete("/delete_student/:mssv", async function (req, res) {
+router.delete("/delete_student/:MSSV", async function (req, res) {
   try {
     const { MSSV } = req.params;
     await studentModel.findOneAndDelete({
