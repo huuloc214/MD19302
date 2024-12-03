@@ -13,14 +13,14 @@ router.get('/get_all_Comment', async function(res, req) {
     if (token) {
       JWT.verify(token, config.SECRETKEY, async function (err, id) {
         if (err) {
-          res.status(403).json({ "status": false, message: "đã có lỗi xãy ra" + err });
+          res.status(400).json({ "status": false, message: "đã có lỗi xãy ra" + err });
         } else {
           var list = await commentModel.find({});
           res.status(200).json(list);
         }
       });
     } else {
-      res.status(401).json({ status: false, message: "không xác thực" });
+      res.status(400).json({ status: false, message: "không xác thực" });
     } 
 
   } catch (e) {
