@@ -25,7 +25,7 @@ router.post("/login", async function(req, res){
       res.status(200).json({status: true, message:"Đăng nhập thành công", token: token, refreshToken: refreshToken});
     }
   }catch(e){
-    res.status(400).json,({status: false, message: "Username đăng nhập không thành công"});
+    res.status(400).json({status: false, message: "Username đăng nhập không thành công"});
   }
 });
 

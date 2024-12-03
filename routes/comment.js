@@ -5,7 +5,7 @@ const commentModel = require('../model/commentModel');
 const JWT = require('jsonwebtoken');
 const config = require("../util/tokenConfig");
 
-router.get('/get_all_Comment', async function(res, req) {
+router.get('/get_all_Comment', async function(req, res) {
   try {
     const token = req.header("Authorization").split(' ')[1];
     if (token) {
@@ -21,7 +21,7 @@ router.get('/get_all_Comment', async function(res, req) {
       res.status(400).json({ status: false, message: "không xác thực" });
     } 
   } catch (e) {
-    res.status(400).json({ statas: false, message: "Có lỗi xãy ra" + e });
+    res.status(400).json({ status: false, message: "Có lỗi xãy ra" + e });
   }
 });
 
