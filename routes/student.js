@@ -56,7 +56,7 @@ router.get("/get_avg/:minAvg/:maxAvg", async function (req, res) {
 });
 
 // Tìm kiếm thông tin của sinh viên theo MSSV
-router.get("/find_by_mssv", async function (req, res) {
+router.get("/find_by_MSSV", async function (req, res) {
   try {
     const { PS } = req.query;
     var student = await studentModel.find({ MSSV: { $eq: PS } });
