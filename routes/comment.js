@@ -80,7 +80,7 @@ router.put("/edit_comment_by_videoID", async function (req, res) {
 router.get("/find_by_VideoID", async function (req, res) {
   try {
     const { videoID } = req.query;
-    var comment = await commentModel.find({ MSSV: { $eq: videoID } });
+    var comment = await commentModel.find({ videoID: { $eq: videoID } });
     res.status(200).json(comment);
   } catch (error) {
     res.status(404).json({ status: false, message: "Có lỗi xảy ra " + error });
