@@ -58,7 +58,7 @@ router.delete("/delete_Comment/:videoID", async function (req, res) {
   }
 });
 
-router.put("/edit_comment_by_ID", async function (req, res) {
+router.put("/edit_comment_by_videoID", async function (req, res) {
   try {
     const { videoID, channelID, content } = req.body;
 
