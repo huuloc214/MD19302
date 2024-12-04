@@ -119,6 +119,15 @@ router.get("/find_by_videoID", async function (req, res) {
   }
 });
 
+router.get("/get_ all_student_majo", async function (req, res) {
+  try {
+    const { m } = req.query;
+    var list = await studentModel.find({ BM: { $eq: m } });
+    res.status(200).json(list);
+  } catch (error) {
+    res.status(404).json({ statas: false, message: " có lỗi xãy ra" + error });
+  }
+});
 
 
 module.exports = router;
