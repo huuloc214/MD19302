@@ -119,38 +119,46 @@ router.get("/find_by_videoID", async function (req, res) {
   }
 });
 
-router.get("/get_all_channelID", async function (req, res) {
+router.get("/get_comments_by_channelID", async (req, res) => {
   try {
-    const { m } = req.query;
-
-    if (!m) {
-      return res
-        .status(400)
-        .json({ status: false, message: "channelID là bắt buộc." });
-    }
-
-    
-    const list = await commentModel.find({ channelID: m });
-
-    
-    if (list.length === 0) {
-      return res
-        .status(404)
-        .json({ status: false, message: "Không tìm thấy dữ liệu nào." });
-    }
-
-    res.status(200).json({
-      status: true,
-      message: "Thành công",
-      data: list,
-    });
+    const { channelID } = req.query;
+    const comments = await commentModel.find({ channelID });
+    res.status(200).json({ status: true, data: comments });
   } catch (error) {
-    res.status(500).json({
-      status: false,
-      message: "Có lỗi xảy ra: " + error.message,
-    });
+    res.status(500).json({ status: false, message: "Không tìm thấy comments bởi channelID", error: error.message });
   }
 });
+
+router.get("/get_comment_by_channelID", async (req, res) => {
+  try {
+    const { channelID } = req.query;
+    const comment = await commentModel.find({ channelID });
+    res.status(200).json({ status: true, data: comment });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "Không tìm thấy comments bởi channelID", error: error.message });
+  }
+});
+
+router.get("/count_comments_by_videoID", async (req, res) => {
+  try {
+    const { videoID } = req.query;
+    const count = await commentModel.countDocuments({ videoID });
+    res.status(200).json({ status: true, data: count });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "Error counting comments", error: error.message });
+  }
+});
+
+router.get("/count_comments_by_channelID", async (req, res) => {
+  try {
+    const { channelID } = req.query;
+    const count = await commentModel.countDocuments({ channelID });
+    res.status(200).json({ status: true, data: count });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "Error counting comments", error: error.message });
+  }
+});
+
 
 
 module.exports = router;
