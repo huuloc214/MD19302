@@ -69,14 +69,14 @@ router.put("/edit_comment_by_videoID", async function (req, res) {
     }
 
     const updatedComment = await commentModel.findOneAndUpdate(
-      { videoID: videoID }, // Tìm comment dựa trên videoID
+      { videoID: videoID }, 
       {
         $set: {
-          channelID: channelID || undefined, // Chỉ cập nhật nếu có giá trị mới
+          channelID: channelID || undefined, 
           content: content || undefined,
         },
       },
-      { new: true } // Trả về comment đã được cập nhật
+      { new: true } 
     );
 
     if (!updatedComment) {
@@ -95,12 +95,30 @@ router.put("/edit_comment_by_videoID", async function (req, res) {
 router.get("/find_by_VideoID", async function (req, res) {
   try {
     const { videoID } = req.query;
-    var comment = await commentModel.find({ videoID: { $eq: videoID } });
-    res.status(200).json(comment);
+
+    if (!videoID) {
+      return res
+        .status(400)
+        .json({ status: false, message: "videoID là bắt buộc." });
+    }
+
+    const comments = await commentModel.find({ videoID });
+
+    if (comments.length === 0) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Không tìm thấy comment nào." });
+    }
+
+    res.status(200).json({ status: true, message: "Thành công", comments });
   } catch (error) {
-    res.status(404).json({ status: false, message: "Có lỗi xảy ra " + error });
+    res.status(500).json({
+      status: false,
+      message: "Có lỗi xảy ra: " + error.message,
+    });
   }
 });
+
 
 
 module.exports = router;
