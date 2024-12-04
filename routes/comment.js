@@ -92,7 +92,7 @@ router.put("/edit_comment_by_videoID", async function (req, res) {
 });
 
 
-router.get("/find_by_VideoID", async function (req, res) {
+router.get("/find_by_videoID", async function (req, res) {
   try {
     const { videoID } = req.query;
 
