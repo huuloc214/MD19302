@@ -62,20 +62,35 @@ router.put("/edit_comment_by_videoID", async function (req, res) {
   try {
     const { videoID, channelID, content } = req.body;
 
-    var comment = await commentModel.findOne({ videoID: { $eq: videoID } });
-    if (comment) {
-      comment.videoID = videoID ? videoID : comment.videoID;
-      comment.channelID = channelID ? channelID : comment.channelID;
-      comment.content = content ? content : comment.content;
-      await comment.save();
-      res.status(200).json({ status: true, message: "Đã sửa thành công" });
+    if (!videoID) {
+      return res
+        .status(400)
+        .json({ status: false, message: "videoID là bắt buộc." });
     }
+
+    const updatedComment = await commentModel.findOneAndUpdate(
+      { videoID: videoID }, // Tìm comment dựa trên videoID
+      {
+        $set: {
+          channelID: channelID || undefined, // Chỉ cập nhật nếu có giá trị mới
+          content: content || undefined,
+        },
+      },
+      { new: true } // Trả về comment đã được cập nhật
+    );
+
+    if (!updatedComment) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Không tìm thấy comment." });
+    }
+
+    res.status(200).json({ status: true, message: "Đã sửa thành công", updatedComment });
   } catch (error) {
-    res
-      .status(404)
-      .json({ status: false, message: "Đã có lỗi xảy ra" + error });
+    res.status(500).json({ status: false, message: "Đã có lỗi xảy ra: " + error.message });
   }
 });
+
 
 router.get("/find_by_VideoID", async function (req, res) {
   try {
