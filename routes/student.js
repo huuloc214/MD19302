@@ -58,8 +58,8 @@ router.get("/get_avg/:minAvg/:maxAvg", async function (req, res) {
 // Tìm kiếm thông tin của sinh viên theo MSSV
 router.get("/find_by_MSSV", async function (req, res) {
   try {
-    const { PS } = req.query;
-    var student = await studentModel.find({ MSSV: { $eq: PS } });
+    const { MSSV } = req.query;
+    var student = await studentModel.find({ MSSV: { $eq: MSSV } });
     res.status(200).json(student);
   } catch (error) {
     res.status(404).json({ status: false, message: "Có lỗi xảy ra " + error });
