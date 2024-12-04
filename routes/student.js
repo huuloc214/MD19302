@@ -93,7 +93,7 @@ router.put("/edit_student_by_MSSV", async function (req, res) {
   try {
     const { MSSV, TenHocSinh, Diem, BM, Tuoi } = req.body;
 
-    var student = await studentModel.findOne({ mssv: { $eq: MSSV } });
+    var student = await studentModel.findOne({ MSSV: { $eq: MSSV } });
     if (student) {
       student.TenHocSinh = TenHocSinh ? TenHocSinh : student.TenHocSinh;
       student.Diem = Diem ? Diem : student.Diem;
