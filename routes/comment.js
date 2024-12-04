@@ -102,15 +102,15 @@ router.get("/find_by_videoID", async function (req, res) {
         .json({ status: false, message: "videoID là bắt buộc." });
     }
 
-    const comments = await commentModel.find({ videoID });
+    const comment = await commentModel.find({ videoID });
 
-    if (comments.length === 0) {
+    if (comment.length === 0) {
       return res
         .status(404)
         .json({ status: false, message: "Không tìm thấy comment nào." });
     }
 
-    res.status(200).json({ status: true, message: "Thành công", comments });
+    res.status(200).json({ status: true, message: "Thành công", comment });
   } catch (error) {
     res.status(500).json({
       status: false,
