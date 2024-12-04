@@ -145,7 +145,7 @@ router.get("/count_comments_by_videoID", async (req, res) => {
     const count = await commentModel.countDocuments({ videoID });
     res.status(200).json({ status: true, data: count });
   } catch (error) {
-    res.status(500).json({ status: false, message: "Error counting comments", error: error.message });
+    res.status(500).json({ status: false, message: "lỗi đếm bình luận", error: error.message });
   }
 });
 
@@ -155,7 +155,17 @@ router.get("/count_comments_by_channelID", async (req, res) => {
     const count = await commentModel.countDocuments({ channelID });
     res.status(200).json({ status: true, data: count });
   } catch (error) {
-    res.status(500).json({ status: false, message: "Error counting comments", error: error.message });
+    res.status(500).json({ status: false, message: "lỗi đếm bình luận", error: error.message });
+  }
+});
+
+router.delete("/delete_comments_by_videoID", async (req, res) => {
+  try {
+    const { videoID } = req.body;
+    await commentModel.deleteMany({ videoID });
+    res.status(200).json({ status: true, message: "Đã sửa thành công" });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "có Lỗi xãy ra", error: error.message });
   }
 });
 
