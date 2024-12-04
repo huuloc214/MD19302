@@ -119,13 +119,36 @@ router.get("/find_by_videoID", async function (req, res) {
   }
 });
 
-router.get("/get_ all_channeID", async function (req, res) {
+router.get("/get_all_channelID", async function (req, res) {
   try {
     const { m } = req.query;
-    var list = await commentModel.find({ channelID: { $eq: m } });
-    res.status(200).json(list);
+
+    if (!m) {
+      return res
+        .status(400)
+        .json({ status: false, message: "channelID là bắt buộc." });
+    }
+
+    
+    const list = await commentModel.find({ channelID: m });
+
+    
+    if (list.length === 0) {
+      return res
+        .status(404)
+        .json({ status: false, message: "Không tìm thấy dữ liệu nào." });
+    }
+
+    res.status(200).json({
+      status: true,
+      message: "Thành công",
+      data: list,
+    });
   } catch (error) {
-    res.status(404).json({ statas: false, message: " có lỗi xãy ra" + error });
+    res.status(500).json({
+      status: false,
+      message: "Có lỗi xảy ra: " + error.message,
+    });
   }
 });
 
