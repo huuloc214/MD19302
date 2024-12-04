@@ -30,7 +30,7 @@ router.get("/get_all_student", async function (req, res) {
 });
 
 //Lấy toàn bộ danh sách sinh viên thuộc khoa CNTT  
-router.get("/get_ all_studen_majo", async function (req, res) {
+router.get("/get_ all_student_majo", async function (req, res) {
   try {
     const { m } = req.query;
     var list = await studentModel.find({ BM: { $eq: m } });
